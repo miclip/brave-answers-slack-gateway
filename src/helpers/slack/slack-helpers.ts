@@ -3,17 +3,16 @@ import { createHmac, timingSafeEqual } from 'crypto';
 import { SecretsManager } from 'aws-sdk';
 import { Block, ChatPostMessageResponse, ModalView, WebClient } from '@slack/web-api';
 import { SlackEventsEnv } from '@functions/slack-event-handler';
-import { SlackInteractionsEnv } from '@functions/slack-interaction-handler';
 import { makeLogger } from '@src/logging';
 import { isEmpty } from '@src/utils';
-import { SourceAttributions } from 'aws-sdk/clients/qbusiness';
+
 
 const logger = makeLogger('slack-helpers');
 
 let secretManagerClient: SecretsManager | null = null;
 
 export const ERROR_MSG = '*_Processing error_*';
-const getSecretManagerClient = (env: SlackInteractionsEnv | SlackEventsEnv) => {
+const getSecretManagerClient = (env: SlackEventsEnv) => {
   if (secretManagerClient === null) {
     secretManagerClient = new SecretsManager({ region: env.REGION });
   }
@@ -29,7 +28,7 @@ export interface Secret {
   SlackSigningSecret: string;
 }
 
-export const getUserInfo = async (env: SlackInteractionsEnv | SlackEventsEnv, user: string) => {
+export const getUserInfo = async (env: SlackEventsEnv, user: string) => {
   const response = await (
     await getSlackClient(env)
   ).users.info({
@@ -42,7 +41,7 @@ export const getUserInfo = async (env: SlackInteractionsEnv | SlackEventsEnv, us
 };
 
 export const retrieveThreadHistory = async (
-  env: SlackInteractionsEnv | SlackEventsEnv,
+  env: SlackEventsEnv,
   channel: string,
   thread_ts: string
 ) => {
@@ -59,7 +58,7 @@ export const retrieveThreadHistory = async (
 };
 
 export const retrieveAttachment = async (
-  env: SlackInteractionsEnv | SlackEventsEnv,
+  env: SlackEventsEnv,
   url: string
 ) => {
   const secret = await getSlackSecret(env);
@@ -81,7 +80,7 @@ export const retrieveAttachment = async (
 };
 
 export const sendSlackMessage = async (
-  env: SlackInteractionsEnv | SlackEventsEnv,
+  env: SlackEventsEnv,
   channel: string,
   text: string,
   blocks?: Block[],
@@ -102,7 +101,7 @@ export const sendSlackMessage = async (
 };
 
 export const updateSlackMessage = async (
-  env: SlackInteractionsEnv | SlackEventsEnv,
+  env: SlackEventsEnv,
   postMessageResponse: ChatPostMessageResponse,
   text: string | undefined,
   blocks?: Block[]
@@ -125,7 +124,7 @@ export const updateSlackMessage = async (
 };
 
 export const openModal = async (
-  env: SlackInteractionsEnv | SlackEventsEnv,
+  env: SlackEventsEnv,
   triggerId: string,
   channel: string,
   view: ModalView
@@ -189,78 +188,13 @@ export const createButton = (text: string, systemMessageId: string) => ({
   ]
 });
 
-export const createModal = (title: string, sources: SourceAttributions): ModalView => {
-  const blocks = [];
-  for (let i = 0; i < sources.length; i++) {
-    const source = sources[i];
-
-    if (!isEmpty(source.title)) {
-      blocks.push({
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: `${i + 1}) Title: *${source.title.trim()}*`
-        }
-      });
-
-      blocks.push({
-        type: 'divider'
-      });
-    }
-
-    if (!isEmpty(source.url)) {
-      blocks.push({
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: `_From: ${source.url.trim()}_`
-        }
-      });
-
-      blocks.push({
-        type: 'divider'
-      });
-    }
-
-    if (!isEmpty(source.snippet)) {
-      blocks.push({
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text:
-            source.snippet.length > 3000
-              ? source.snippet.slice(0, 3000 - (1 + 3)).trim() + '...'
-              : source.snippet.trim()
-        }
-      });
-
-      blocks.push({
-        type: 'divider'
-      });
-    }
-  }
-
-  return {
-    type: 'modal',
-    title: {
-      type: 'plain_text',
-      text: title
-    },
-    blocks,
-    close: {
-      type: 'plain_text',
-      text: 'Close'
-    }
-  };
-};
-
-const getSlackClient = async (env: SlackInteractionsEnv | SlackEventsEnv) => {
+const getSlackClient = async (env:  SlackEventsEnv) => {
   const secret = await getSlackSecret(env);
   return new WebClient(secret.SlackBotUserOAuthToken);
 };
 
 export const getSlackSecret = async (
-  env: SlackInteractionsEnv | SlackEventsEnv
+  env: SlackEventsEnv
 ): Promise<Secret> => {
   logger.debug(`Getting secret value for SecretId ${env.SLACK_SECRET_NAME}`);
   const secret = await getSecretManagerClient(env)
@@ -279,7 +213,7 @@ export const getSlackSecret = async (
 export const validateSlackRequest = async (
   headers: { [key: string]: string | undefined },
   encodedBody: string,
-  env: SlackInteractionsEnv | SlackEventsEnv,
+  env: SlackEventsEnv,
   dependencies = {
     getSlackSecret
   }

@@ -1,8 +1,8 @@
 import { handler } from '@functions/slack-event-handler';
-import amazonQValidResponse2TextSimple from '@tst/mocks/amazon-q/valid-response-2.json';
+import braveValidResponse2TextSimple from '@tst/mocks/brave/valid-summary-response-2.json';
 import { MOCK_AWS_RESPONSE, MOCK_DEPENDENCIES, MOCK_ENV } from '@tst/mocks/mocks';
 import { Callback, Context } from 'aws-lambda';
-import { ChatSyncCommandOutput } from '@aws-sdk/client-qbusiness';
+import { SummarizerSearchApiResponse } from '@src/helpers/brave/brave-helpers';
 
 /* eslint @typescript-eslint/no-explicit-any: "off" */
 
@@ -200,7 +200,7 @@ describe('Slack event handler test', () => {
       {} as Callback,
       {
         ...MOCK_DEPENDENCIES,
-        callClient: () => Promise.resolve(amazonQValidResponse2TextSimple as ChatSyncCommandOutput),
+        
         getItem: async () =>
           Promise.resolve({
             Item: {
@@ -226,34 +226,6 @@ describe('Slack event handler test', () => {
           type: 'mrkdwn',
           text: 'This is a simple text\n and now with a \n*header*\n*another header*'
         }
-      },
-      {
-        type: 'actions',
-        block_id: `feedback-${amazonQValidResponse2TextSimple.conversationId}-${amazonQValidResponse2TextSimple.systemMessageId}`,
-        elements: [
-          {
-            type: 'button',
-            text: {
-              type: 'plain_text',
-              emoji: true,
-              text: ':thumbsup:'
-            },
-            style: 'primary',
-            action_id: 'FEEDBACK_UP',
-            value: amazonQValidResponse2TextSimple.systemMessageId
-          },
-          {
-            type: 'button',
-            text: {
-              type: 'plain_text',
-              emoji: true,
-              text: ':thumbsdown:'
-            },
-            style: 'danger',
-            action_id: 'FEEDBACK_DOWN',
-            value: amazonQValidResponse2TextSimple.systemMessageId
-          }
-        ]
       }
     ]);
   });
@@ -275,7 +247,6 @@ describe('Slack event handler test', () => {
       {} as Callback,
       {
         ...MOCK_DEPENDENCIES,
-        callClient: () => Promise.reject('Error'),
         getItem: async () =>
           Promise.resolve({
             Item: {
@@ -363,7 +334,6 @@ describe('Slack event handler test', () => {
               next_cursor: 'bmV4dF90czoxNTEyMDg1ODYxMDAwNTQz'
             }
           }),
-        callClient: () => Promise.resolve(amazonQValidResponse2TextSimple),
         getItem: async () =>
           Promise.resolve({
             Item: {
@@ -397,35 +367,6 @@ describe('Slack event handler test', () => {
             type: 'mrkdwn',
             text: 'This is a simple text\n and now with a \n*header*\n*another header*'
           }
-        },
-        {
-          type: 'actions',
-          block_id:
-            'feedback-80a6642c-8b3d-433e-a9cb-233b42a0d63a-e5a23752-3f31-4fee-83fe-56fbd7803540',
-          elements: [
-            {
-              type: 'button',
-              text: {
-                type: 'plain_text',
-                emoji: true,
-                text: ':thumbsup:'
-              },
-              style: 'primary',
-              action_id: 'FEEDBACK_UP',
-              value: 'e5a23752-3f31-4fee-83fe-56fbd7803540'
-            },
-            {
-              type: 'button',
-              text: {
-                type: 'plain_text',
-                emoji: true,
-                text: ':thumbsdown:'
-              },
-              style: 'danger',
-              action_id: 'FEEDBACK_DOWN',
-              value: 'e5a23752-3f31-4fee-83fe-56fbd7803540'
-            }
-          ]
         }
       ]
     });

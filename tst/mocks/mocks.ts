@@ -1,7 +1,7 @@
 import { HttpResponse } from 'aws-sdk';
-import amazonQValidResponse1TextTable from '@tst/mocks/amazon-q/valid-response-1.json';
-import { getFeedbackBlocks, getResponseAsBlocks } from '@helpers/amazon-q/amazon-q-helpers';
-import { ChatSyncCommandOutput, PutFeedbackCommandOutput } from '@aws-sdk/client-qbusiness';
+import braveSummaryValidResponse from '@tst/mocks/brave/valid-summary-response-1.json';
+import braveSearchValidResponse from '@tst/mocks/brave/valid-search-response-1.json';
+import { BraveClientInterface, SummarizerSearchApiResponse, WebSearchApiResponse, getResponseAsBlocks } from '@src/helpers/brave/brave-helpers';
 
 export const MOCK_ENV = {
   SLACK_SECRET_NAME: 'SLACK_SECRET_NAME',
@@ -12,7 +12,8 @@ export const MOCK_ENV = {
   CONTEXT_DAYS_TO_LIVE: 'N',
   CACHE_TABLE_NAME: `CACHE_TABLE_NAME`,
   AMAZON_Q_REGION: 'AMAZON_Q_REGION',
-  MESSAGE_METADATA_TABLE_NAME: 'MESSAGE_METADATA_TABLE_NAME'
+  MESSAGE_METADATA_TABLE_NAME: 'MESSAGE_METADATA_TABLE_NAME',
+  BRAVE_SECRET_NAME: 'BRAVE_SECRET_NAME'
 };
 
 /* eslint @typescript-eslint/no-explicit-any: "off" */
@@ -29,9 +30,25 @@ export const MOCK_AWS_RESPONSE = {
   }
 };
 
+
+
+export class BraveClientMock implements BraveClientInterface {
+  getSecret(env: { REGION: string; SLACK_SECRET_NAME: string; CONTEXT_DAYS_TO_LIVE: string; CACHE_TABLE_NAME: string; MESSAGE_METADATA_TABLE_NAME: string; BRAVE_SECRET_NAME: string; }): void {
+    return;
+  }
+  getSummary(key: String): Promise<SummarizerSearchApiResponse | Error> {
+    return Promise.resolve(braveSummaryValidResponse as SummarizerSearchApiResponse);
+  }
+  getSearch(query: String): Promise<Error | WebSearchApiResponse> {
+    return Promise.resolve(braveSearchValidResponse as WebSearchApiResponse);
+  }
+
+}
+
+export const getBraveClient: BraveClientInterface = new BraveClientMock();
+
 export const MOCK_DEPENDENCIES = {
-  callClient: () => Promise.resolve(amazonQValidResponse1TextTable as ChatSyncCommandOutput),
-  submitFeedbackRequest: () => Promise.resolve({} as PutFeedbackCommandOutput),
+  getBraveClient,
   deleteItem: async () => MOCK_AWS_RESPONSE,
   putItem: async () => MOCK_AWS_RESPONSE,
   validateSlackRequest: () => Promise.resolve(true),
@@ -45,7 +62,6 @@ export const MOCK_DEPENDENCIES = {
   updateSlackMessage: () => Promise.resolve({} as any),
   openModal: () => Promise.resolve({} as any),
   getResponseAsBlocks,
-  getFeedbackBlocks,
   getUserInfo: () =>
     Promise.resolve({
       ok: true,

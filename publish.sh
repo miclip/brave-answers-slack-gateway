@@ -56,10 +56,6 @@ envfile=/tmp/environment.json
 cat > /tmp/environment.json << _EOF
 {
   "StackName": "AQSG",
-  "AmazonQAppId": "QAPPID",
-  "AmazonQUserId": "QUSERID",
-  "AmazonQRegion": "QREGION",
-  "AmazonQEndpoint": "QENDPOINT",
   "ContextDaysToLive": "QCONTEXTTTL"
 }
 _EOF
@@ -74,11 +70,11 @@ echo "Running cdk synthesize to create artifacts and template"
 cdk synthesize --staging  -c environment=$envfile > /dev/null
 
 echo "Converting and uploading Cfn artifacts to S3"
-CDKTEMPLATE="AmazonQSlackGatewayStack.template.json"
+CDKTEMPLATE="BraveSlackGatewayStack.template.json"
 echo node ./bin/convert-cfn-template.js $CDKTEMPLATE $BUCKET $PREFIX_AND_VERSION $REGION
 node ./bin/convert-cfn-template.js $CDKTEMPLATE $BUCKET $PREFIX_AND_VERSION $REGION
 
-MAIN_TEMPLATE="AmazonQSlackGateway.json"
+MAIN_TEMPLATE="BraveSlackGateway.json"
 aws s3 cp s3://${BUCKET}/${PREFIX_AND_VERSION}/${CDKTEMPLATE} s3://${BUCKET}/${PREFIX}/${MAIN_TEMPLATE} || exit 1
 
 template="https://s3.${REGION}.amazonaws.com/${BUCKET}/${PREFIX}/${MAIN_TEMPLATE}"
@@ -97,7 +93,7 @@ fi
 
 echo "OUTPUTS"
 echo Template URL: $template
-echo CF Launch URL: https://${REGION}.console.aws.amazon.com/cloudformation/home?region=${REGION}#/stacks/create/review?templateURL=${template}\&stackName=AMAZON-Q-SLACK-GATEWAY
+echo CF Launch URL: https://${REGION}.console.aws.amazon.com/cloudformation/home?region=${REGION}#/stacks/create/review?templateURL=${template}\&stackName=BRAVE-SLACK-GATEWAY
 echo Done
 exit 0
 

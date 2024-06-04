@@ -1,0 +1,30 @@
+ {
+    "type": "summarizer",
+    "status": "complete",
+    "title": "how do I html encode a string in bash?",
+    "summary": [
+        {
+            "type": "token",
+            "data": "To HTML encode a string in bash, you can use the `sed` command with specific patterns to replace special characters with their corresponding HTML entities. Here are a few examples:\n\n1. **Simple HTML encoding**:\n```bash\nstring=\"Hello & World!\"\necho \"$string\" | sed 's/&/\\&amp;/g; s/</\\&lt;/g; s/>/\\&gt;/g'\n```\nThis will output: `Hello &amp; World!`\n\n2. **More comprehensive HTML encoding**:\n```bash\nstring=\"Hello & World! <a href='http://example.com'>Link</a>\"\necho \"$string\" | sed 's/&/\\&amp;/g; s/</\\&lt;/g; s/>/\\&gt;/g; s/\"/\\&quot;/g; s/\\'/\\&apos;/g'\n```\nThis will output: `Hello &amp; World! &lt;a href='http://example.com'&gt;Link&lt;/a&gt;`\n\n3. **Using a function**:\n```bash\nhtmlEscape() {\n  local s\n  s=${1//&amp;/&amp;}\n  s=${s//&lt;/&lt;}\n  s=${s//&gt;/&gt;}\n  s=${s//\"/\\\"}\n  s=${s//\\'/\\'}\n  printf -- %s \"$s\"\n}\n\nstring=\"Hello & World! <a href='http://example.com'>Link</a>\"\necho $(htmlEscape \"$string\")\n```\nThis will output: `Hello &amp; World! &lt;a href='http://example.com'&gt;Link&lt;/a&gt;`\n\nNote: These examples assume that you want to encode the special characters `&`, `<`, `>`, `\"`, and `'` to their corresponding HTML entities. You can modify the patterns to include additional characters or adjust the encoding as needed."
+        }
+    ],
+    "enrichments": {
+        "raw": "To HTML encode a string in bash, you can use the `sed` command with specific patterns to replace special characters with their corresponding HTML entities. Here are a few examples:\n\n1. **Simple HTML encoding**:\n```bash\nstring=\"Hello & World!\"\necho \"$string\" | sed 's/&/\\&amp;/g; s/</\\&lt;/g; s/>/\\&gt;/g'\n```\nThis will output: `Hello &amp; World!`\n\n2. **More comprehensive HTML encoding**:\n```bash\nstring=\"Hello & World! <a href='http://example.com'>Link</a>\"\necho \"$string\" | sed 's/&/\\&amp;/g; s/</\\&lt;/g; s/>/\\&gt;/g; s/\"/\\&quot;/g; s/\\'/\\&apos;/g'\n```\nThis will output: `Hello &amp; World! &lt;a href='http://example.com'&gt;Link&lt;/a&gt;`\n\n3. **Using a function**:\n```bash\nhtmlEscape() {\n  local s\n  s=${1//&amp;/&amp;}\n  s=${s//&lt;/&lt;}\n  s=${s//&gt;/&gt;}\n  s=${s//\"/\\\"}\n  s=${s//\\'/\\'}\n  printf -- %s \"$s\"\n}\n\nstring=\"Hello & World! <a href='http://example.com'>Link</a>\"\necho $(htmlEscape \"$string\")\n```\nThis will output: `Hello &amp; World! &lt;a href='http://example.com'&gt;Link&lt;/a&gt;`\n\nNote: These examples assume that you want to encode the special characters `&`, `<`, `>`, `\"`, and `'` to their corresponding HTML entities. You can modify the patterns to include additional characters or adjust the encoding as needed.",
+        "context": [
+            {
+                "title": "command line - How to convert to HTML code? - Unix & Linux Stack Exchange",
+                "url": "https://unix.stackexchange.com/questions/13766/how-to-convert-to-html-code",
+                "meta_url": {
+                    "hostname": "unix.stackexchange.com",
+                    "favicon": "https://imgs.search.brave.com/Z209HE-Ycf5p7XSVHGZYCUFoC6E5Gu1nkX0JdXxWsd4/rs:fit:32:32:1/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNTIzMTcxZjI3/MGNlY2FiNjE0NTk5/OGVmZjA2NDM3MmJk/MmE4NDJmMjdlYWFl/YTI0ODY4ZGEzODJk/NTNlMjIzZi91bml4/LnN0YWNrZXhjaGFu/Z2UuY29tLw"
+                }
+            }
+            
+        ]
+    },
+    "followups": [
+        "How do I HTML encode a string in bash if the string contains newline characters?",
+        "What are some common pitfalls or edge cases to watch out for when using HTML encoding in bash?",
+        "How do I HTML encode a string in bash if it contains non-ASCII characters, such as accented letters or emojis?"
+    ]
+}

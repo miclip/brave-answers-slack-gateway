@@ -153,19 +153,6 @@ function updateTemplateLambdaAssetPaths(template, lambdas, destinationBucket, de
   }
 }
 
-function replaceQAppIdResourceArn(role, arn) {
-  const amazonQAppResourceArn = {
-    'Fn::Sub': 'arn:aws:qbusiness:*:*:application/${AmazonQAppId}'
-  };
-  if (typeof arn === 'string' && arn.startsWith('arn:aws:qbusiness:*:*:application/')) {
-    console.log(
-      `Role ${role}: updating Q application arn: ${arn} to ${JSON.stringify(amazonQAppResourceArn)}`
-    );
-    arn = amazonQAppResourceArn;
-  }
-  return arn;
-}
-
 function updateTemplateLambdaRolePermissions(template, lambdas) {
   for (let lambda of lambdas) {
     const roleResourceName = lambda.roleResourceName;
@@ -189,23 +176,11 @@ function parameterizeTemplate(template, lambdas) {
   const allowedQRegions = ['us-east-1', 'us-west-2'];
   const defaultQRegion = allowedQRegions.includes(awsRegion) ? awsRegion : allowedQRegions[0];
   template.Parameters = {
-    AmazonQUserId: {
-      Type: 'String',
-      Default: '',
-      AllowedPattern: '(|^[\\w.+-]+@([\\w-]+\\.)+[\\w-]{2,6}$)',
-      Description:
-        '(Optional) Amazon Q User ID email address (leave empty to use Slack users email as user Id)'
-    },
-    AmazonQAppId: {
-      Type: 'String',
-      AllowedPattern: '^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$',
-      Description: 'Existing Amazon Q Application ID (copy from Amazon Q console)'
-    },
-    AmazonQRegion: {
+    AWSRegion: {
       Type: 'String',
       Default: defaultQRegion,
       AllowedValues: allowedQRegions,
-      Description: 'Amazon Q Region'
+      Description: 'AWS Region'
     },
     ContextDaysToLive: {
       Type: 'Number',
@@ -216,10 +191,7 @@ function parameterizeTemplate(template, lambdas) {
   };
   for (let lambda of lambdas) {
     let lambdaResource = template.Resources[lambda.resourceName];
-    lambdaResource.Properties.Environment.Variables.AMAZON_Q_ENDPOINT = ''; // use default endpoint
-    lambdaResource.Properties.Environment.Variables.AMAZON_Q_USER_ID = { Ref: 'AmazonQUserId' };
-    lambdaResource.Properties.Environment.Variables.AMAZON_Q_APP_ID = { Ref: 'AmazonQAppId' };
-    lambdaResource.Properties.Environment.Variables.AMAZON_Q_REGION = { Ref: 'AmazonQRegion' };
+    lambdaResource.Properties.Environment.Variables.AWS_REGION = { Ref: 'AWSRegion' };
     lambdaResource.Properties.Environment.Variables.CONTEXT_DAYS_TO_LIVE = {
       Ref: 'ContextDaysToLive'
     };
@@ -267,12 +239,6 @@ function addSlackAppManifestOutputToTemplate(template) {
     'SlackEventHandlerApiEndpoint'
   );
   const SlackEventHandlerApiOutputValue = template.Outputs[SlackEventHandlerApiOutputKey].Value;
-  const SlackInteractionHandlerApiOutputKey = findOutputKey(
-    template.Outputs,
-    'SlackInteractionHandlerApiEndpoint'
-  );
-  const SlackInteractionHandlerApiOutputValue =
-    template.Outputs[SlackInteractionHandlerApiOutputKey].Value;
   const SlackCommandApiOutputKey = findOutputKey(
     template.Outputs,
     'SlackCommandHandlerApiEndpoint'
@@ -285,7 +251,6 @@ function addSlackAppManifestOutputToTemplate(template) {
       {
         SlackBotName: SlackBotNameValue,
         SlackEventHandlerApiOutput: SlackEventHandlerApiOutputValue,
-        SlackInteractionHandlerApiOutput: SlackInteractionHandlerApiOutputValue,
         SlackCommandApiOutput: SlackCommandApiOutputOutputValue
       }
     ]

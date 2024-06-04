@@ -1,7 +1,7 @@
 {
   "display_information": {
     "name": "!!! [SlackBotName] !!!",
-    "description": "This is an example of a Slack app interfacing with ExpertQ using AWS CDK.",
+    "description": "This is an example of a Slack app interfacing with Brave Search API using AWS CDK.",
     "background_color": "#1d7c00"
   },
   "features": {
@@ -11,7 +11,7 @@
     },
     "slash_commands": [
       {
-          "command": "/new_conversation",
+          "command": "/new_brave",
           "url": "!!! [SlackCommandApiOutput] !!!",
           "description": "Start a new conversation",
           "should_escape": false
@@ -46,8 +46,7 @@
       ]
     },
     "interactivity": {
-      "is_enabled": true,
-      "request_url": "!!! [SlackInteractionHandlerApiOutput] !!!"
+      "is_enabled": false
     },
     "org_deploy_enabled": false,
     "socket_mode_enabled": false,

@@ -1,0 +1,202 @@
+{
+    "type": "summarizer",
+    "status": "complete",
+    "title": "what is the second tallest mountain?",
+    "summary": [
+        {
+            "type": "token",
+            "data": "According to the search results, K2 is the second tallest mountain in the world, with a height of 8,611 meters (28,251 feet). It is located in the Karakoram Range and lies partly in a Chinese-administered enclave of the Kashmir region within the Uygur Autonomous Region of Xinjiang, China, and partly in the Gilgit-Baltistan region of Pakistan. K2 is also known as the \"Savage Mountain\" due to its extreme weather conditions and challenging climbing routes."
+        }
+    ],
+    "enrichments": {
+        "raw": "According to the search results, K2 is the second tallest mountain in the world, with a height of 8,611 meters (28,251 feet). It is located in the Karakoram Range and lies partly in a Chinese-administered enclave of the Kashmir region within the Uygur Autonomous Region of Xinjiang, China, and partly in the Gilgit-Baltistan region of Pakistan. K2 is also known as the \"Savage Mountain\" due to its extreme weather conditions and challenging climbing routes.",
+        "images": [
+            {
+                "thumbnail": {
+                    "src": "https://imgs.search.brave.com/jKifNF6H4aoKpNX2fo56jfh8sfQ5vs2ajcuNfMhJZog/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20vUDJyeU53/clF1VFVlbUt6VE1J/bmRteTRqMXM3NjRK/SkJqZEJrMlpLQXZr/ay9yczpmaXQ6NTYw/OjMyMDoxL2c6Y2Uv/YUhSMGNITTZMeTkx/Y0d4di9ZV1F1ZDJs/cmFXMWxaR2xoL0xt/OXlaeTkzYVd0cGNH/VmsvYVdFdlkyOXRi/Vzl1Y3k5MC9hSFZ0/WWk4ekx6TXlMMFpz/L1lXZGZiMlpmVUdG/cmFYTjAvWVc0dWMz/Wm5Memd3TUhCNC9M/VVpzWVdkZmIyWmZV/R0ZyL2FYTjBZVzR1/YzNabkxuQnUvWnc.jpeg"
+                },
+                "url": "https://en.wikipedia.org/wiki/Pakistan",
+                "text": "Pakistan"
+            },
+            {
+                "thumbnail": {
+                    "src": "https://imgs.search.brave.com/esumNZyRdsshbPYCC-TceF9yZEI8igRbTXd0sAyhJqE/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20vZkU3cDFy/djYyanVWN2FmZlRk/SC01OWtYLUJLYUx0/RDhLVkNCeEgxUGpt/by9yczpmaXQ6NTYw/OjMyMDoxL2c6Y2Uv/YUhSMGNITTZMeTkx/Y0d4di9ZV1F1ZDJs/cmFXMWxaR2xoL0xt/OXlaeTkzYVd0cGNH/VmsvYVdFdlkyOXRi/Vzl1Y3k5MC9hSFZ0/WWk5bUwyWmhMMFpz/L1lXZGZiMlpmZEdo/bFgxQmwvYjNCc1pT/VXlOM05mVW1Wdy9k/V0pzYVdOZmIyWmZR/MmhwL2JtRXVjM1pu/THpFeU1EQncvZUMx/R2JHRm5YMjltWDNS/by9aVjlRWlc5d2JH/VWxNamR6L1gxSmxj/SFZpYkdsalgyOW0v/WDBOb2FXNWhMbk4y/Wnk1dy9ibWM.jpeg"
+                },
+                "url": "https://en.wikipedia.org/wiki/China",
+                "text": "China"
+            },
+            {
+                "thumbnail": {
+                    "src": "https://imgs.search.brave.com/5DgQ6oj-Fy6GTz2AIviPkopOEJh17ggu32IlwR35NdE/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20vR0RidHJv/MDlJZ19fTm1FWERQ/akVoV2JBSG9WbHNo/UVBjazExbTNsN0NF/US9yczpmaXQ6NTYw/OjMyMDoxL2c6Y2Uv/YUhSMGNITTZMeTkz/ZDNjdS9iWFZqYUdK/bGRIUmxjbUZrL2Rt/VnVkSFZ5WlhNdVky/OXQvTDIxaFoyRjZh/VzVsTDJOdi9iblJs/Ym5RdmFXMWhaMlZ6/L0wzTnBlbVV2ZHpJ/d01EQXYvTWpBeE9T/OHdOaTh4TXpBNS9N/VEl5TlM5cFUzUnZZ/MnN0L01UVTNOalEw/TnpFNUxtcHcvWnc.jpeg"
+                },
+                "url": "https://www.muchbetteradventures.com/magazine/highest-mountains-in-the-world-top-10/",
+                "text": "The Top 10 Highest Mountains in the World"
+            },
+            {
+                "thumbnail": {
+                    "src": "https://imgs.search.brave.com/l8bnEtk_Y571yrLhq04r46pd_-QatsTK_v7RC02OnoY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20vdEJXSmt2/YXZ4cFI0bU1vVzl1/NThWWlBMa3E5R0RG/bFVFNmVQYkdYT1Nv/Yy9yczpmaXQ6NTYw/OjMyMDoxL2c6Y2Uv/YUhSMGNITTZMeTkz/ZDNjdS9kMjl5YkdS/aGRHeGhjeTVqL2Iy/MHZjaTkzTnpZNEwz/VncvYkc5aFpDOWtO/Uzh4Tnk5bS9OeTlv/YVdkb1pYTjBMWFp6/L0xYUmhiR3hsYzNR/dE1ERXUvY0c1bg.jpeg"
+                },
+                "url": "https://www.worldatlas.com/mountains/10-highest-mountains-in-the-world.html",
+                "text": "Infographic showing the difference between the highest and tallest mountains"
+            },
+            {
+                "thumbnail": {
+                    "src": "https://imgs.search.brave.com/_tQEXLAJ8OPqF0hlmSdajW25rhpa2mktvqWFMxzybCo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20vdGxzN0pC/T1BiOUxnR1FxTi1l/UFRkUlItZUVNNTlu/bFdJck1kbnFoN1lG/dy9yczpmaXQ6NTYw/OjMyMDoxL2c6Y2Uv/YUhSMGNITTZMeTkx/Y0d4di9ZV1F1ZDJs/cmFXMWxaR2xoL0xt/OXlaeTkzYVd0cGNH/VmsvYVdFdlkyOXRi/Vzl1Y3k4MC9MelJp/TDBWMlpYSmxjM1Jm/L2EyRnNZWEJoZEhS/b1lYSmYvWTNKdmND/NXFjR2M.jpeg"
+                },
+                "url": "https://en.wikipedia.org/wiki/List_of_highest_mountains_on_Earth",
+                "text": "The summit of Mount Everest, the highest point on Earth"
+            },
+            {
+                "thumbnail": {
+                    "src": "https://imgs.search.brave.com/R8-ZBIrUV30Jo8lVJG_9wt3l_V2DRrfkVhz0V3xIqdA/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20vQURsaENI/bThscHdQei0wTGFz/UFdWNi0yRFdGdHVH/cHNqR1B6OTlDajE1/cy9yczpmaXQ6NTYw/OjMyMDoxL2c6Y2Uv/YUhSMGNITTZMeTkx/Y0d4di9ZV1F1ZDJs/cmFXMWxaR2xoL0xt/OXlaeTkzYVd0cGNH/VmsvYVdFdlkyOXRi/Vzl1Y3k4MS9MelZp/THpkZk1UVmZRbkp2/L1lXUlFaV0ZyTG1w/d1p3.jpeg"
+                },
+                "url": "https://en.wikipedia.org/wiki/List_of_highest_mountains_on_Earth",
+                "text": "Broad Peak, the third-highest mountain of the Karakoram"
+            },
+            {
+                "thumbnail": {
+                    "src": "https://imgs.search.brave.com/0wvOxxN5AGivls6nxZ3XiOdAqr4sWEKXTKWJFM7bj6I/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20vcjdPWWot/RVI4ZG1RWjg5MkZQ/YnNMWXBKV0VkWElz/Z05EWEtYOXl2eW5T/US9yczpmaXQ6NTYw/OjMyMDoxL2c6Y2Uv/YUhSMGNITTZMeTkx/Y0d4di9ZV1F1ZDJs/cmFXMWxaR2xoL0xt/OXlaeTkzYVd0cGNH/VmsvYVdFdlkyOXRi/Vzl1Y3k4dy9MekJo/TDB0aGJtZGphQzFI/L2IyVmphR0ZzWVM1/cWNHYw.jpeg"
+                },
+                "url": "https://en.wikipedia.org/wiki/List_of_highest_mountains_on_Earth",
+                "text": "Kangchenjunga, the second-highest mountain of the Himalaya"
+            }
+        ],
+        "qa": [
+            {
+                "answer": "Pakistan",
+                "highlight": {
+                    "start": 335,
+                    "end": 343
+                }
+            },
+            {
+                "answer": "China",
+                "highlight": {
+                    "start": 283,
+                    "end": 288
+                }
+            }
+        ],
+        "entities": [
+            {
+                "uuid": "ac998057a61e406cbe047d6d6b2b9109",
+                "name": "Pakistan",
+                "url": "https://en.wikipedia.org/wiki/Pakistan",
+                "images": [
+                    {
+                        "thumbnail": {
+                            "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Flag_of_Pakistan.svg/800px-Flag_of_Pakistan.svg.png"
+                        }
+                    },
+                    {
+                        "thumbnail": {
+                            "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Flag_of_Pakistan.svg/640px-Flag_of_Pakistan.svg.png"
+                        }
+                    },
+                    {
+                        "thumbnail": {
+                            "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Flag_of_Pakistan.svg/1200px-Flag_of_Pakistan.svg.png"
+                        }
+                    }
+                ],
+                "highlight": [
+                    {
+                        "start": 335,
+                        "end": 343
+                    }
+                ]
+            },
+            {
+                "uuid": "160fac69082c40c9bbfb429fd399b3c4",
+                "name": "China",
+                "url": "https://en.wikipedia.org/wiki/China",
+                "images": [
+                    {
+                        "thumbnail": {
+                            "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/1200px-Flag_of_the_People%27s_Republic_of_China.svg.png"
+                        }
+                    },
+                    {
+                        "thumbnail": {
+                            "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/640px-Flag_of_the_People%27s_Republic_of_China.svg.png"
+                        }
+                    },
+                    {
+                        "thumbnail": {
+                            "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/800px-Flag_of_the_People%27s_Republic_of_China.svg.png"
+                        }
+                    }
+                ],
+                "highlight": [
+                    {
+                        "start": 283,
+                        "end": 288
+                    }
+                ]
+            }
+        ],
+        "context": [
+            {
+                "title": "K2 | Peak, Geography, History, & Map | Britannica",
+                "url": "https://www.britannica.com/place/K2",
+                "meta_url": {
+                    "hostname": "www.britannica.com",
+                    "favicon": "https://imgs.search.brave.com/hcLf2uAEj_yDbSzYRgdkKMQIWeIcfmsuchdJkpCh2_g/rs:fit:32:32:1/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNzJmYzgxOWRk/Y2FhNWI2MzQzMjQ4/MWVhZDZhNGY3ZjY0/MDgxZTM3YWU5MzYz/NGU2MzM3Y2Y2YTYz/M2IyM2Y0NC93d3cu/YnJpdGFubmljYS5j/b20v"
+                }
+            },
+            {
+                "title": "Highest Mountains in the World: The Top 10 Explored",
+                "url": "https://www.muchbetteradventures.com/magazine/highest-mountains-in-the-world-top-10/",
+                "meta_url": {
+                    "hostname": "www.muchbetteradventures.com",
+                    "favicon": "https://imgs.search.brave.com/Wn5u68xB8ikiV9UNEoihHsP6fbabEDLcfHZerL-sxQU/rs:fit:32:32:1/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvYWIxYWM3NDhi/ZTJiNjVlMGZmOTVl/MGRkYmM0NzFhZGZk/ODFkZWU0ODM1YTIx/ZDA1ZmI5NDhiZWVm/YjRkMTljMS93d3cu/bXVjaGJldHRlcmFk/dmVudHVyZXMuY29t/Lw"
+                }
+            },
+            {
+                "title": "10 Highest Mountains In The World - WorldAtlas",
+                "url": "https://www.worldatlas.com/mountains/10-highest-mountains-in-the-world.html",
+                "meta_url": {
+                    "hostname": "www.worldatlas.com",
+                    "favicon": "https://imgs.search.brave.com/FA_O3bpCO6fU_0AObHXev_i0fKy-mmPGm97xq-DczXA/rs:fit:32:32:1/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMjFlOGU3MjIy/YmQzYTJlNWY3OWFm/NDgwYmQxOTY2MzE5/NTBmOGVkNGJkYjk3/ZTc3NWY4ZjA4YTIw/ODAyNmQwMC93d3cu/d29ybGRhdGxhcy5j/b20v"
+                }
+            },
+            {
+                "title": "K2, the World's Second Highest Mountain - Climbing",
+                "url": "https://www.climbing.com/places/k2-worlds-second-highest-mountain/",
+                "meta_url": {
+                    "hostname": "www.climbing.com",
+                    "favicon": "https://imgs.search.brave.com/Zt3v3iiQdVKrrbpc2bcYAM5zZRjnTPQmISGi5iS-al4/rs:fit:32:32:1/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvYmY5MTdmZjBh/MDk0MTliNTI5MjY1/YzRkNzU1MzE0MGVk/MjRjYTE1OWUwNzhk/YmNmZTU5Y2M5ZjFh/M2M3MDlmOS93d3cu/Y2xpbWJpbmcuY29t/Lw"
+                }
+            },
+            {
+                "title": "The 15 Tallest Mountains in the World | Ultimate Kilimanjaro",
+                "url": "https://www.ultimatekilimanjaro.com/15-tallest-mountains-in-the-world/",
+                "meta_url": {
+                    "hostname": "www.ultimatekilimanjaro.com",
+                    "favicon": "https://imgs.search.brave.com/QBiN5-Fg6fwqghzSJmDlJs-ODFVlNmInXJiToz4Rpxw/rs:fit:32:32:1/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGRhZGM2NTc4/MTg3OGY2ZjU2NTJh/Mzk2MzIxMWJhMTY5/OTgxZGVhNjU3ZmY1/ZjYyOTUzMmFmOTBi/Y2IyMzZiNS93d3cu/dWx0aW1hdGVraWxp/bWFuamFyby5jb20v"
+                }
+            },
+            {
+                "title": "K2 - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/K2",
+                "meta_url": {
+                    "hostname": "en.wikipedia.org",
+                    "favicon": "https://imgs.search.brave.com/0kxnVOiqv-faZvOJc7zpym4Zin1CTs1f1svfNZSzmfU/rs:fit:32:32:1/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNjQwNGZhZWY0/ZTQ1YWUzYzQ3MDUw/MmMzMGY3NTQ0ZjNj/NDUwMDk5ZTI3MWRk/NWYyNTM4N2UwOTE0/NTI3ZDQzNy9lbi53/aWtpcGVkaWEub3Jn/Lw"
+                }
+            },
+            {
+                "title": "List of highest mountains on Earth",
+                "url": "https://en.wikipedia.org/wiki/List_of_highest_mountains_on_Earth",
+                "meta_url": {
+                    "hostname": "en.wikipedia.org",
+                    "favicon": "https://imgs.search.brave.com/0kxnVOiqv-faZvOJc7zpym4Zin1CTs1f1svfNZSzmfU/rs:fit:32:32:1/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNjQwNGZhZWY0/ZTQ1YWUzYzQ3MDUw/MmMzMGY3NTQ0ZjNj/NDUwMDk5ZTI3MWRk/NWYyNTM4N2UwOTE0/NTI3ZDQzNy9lbi53/aWtpcGVkaWEub3Jn/Lw"
+                }
+            }
+        ]
+    },
+    "followups": [
+        "What is the first tallest mountain in the world?",
+        "What is the climate and weather pattern like on K2?",
+        "What is the Karakoram Range, and where is it located?"
+    ]
+}

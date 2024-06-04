@@ -1,6 +1,6 @@
 # Developer README
 
-The main README is here: [Slack gateway for Amazon Q, your business expert (preview)](./README.md)
+The main README is here: [Slack gateway for Brave, your business expert (preview)](./README.md)
 
 This Developer README describes how to build the project from the source code - for developer types. You can:
 - [Deploy the solution](#deploy-the-solution)
@@ -19,12 +19,11 @@ To deploy or to publish, you need to have the following packages installed on yo
 7. cdk (AWS CDK): https://docs.aws.amazon.com/cdk/v2/guide/cli.html
 
 Copy the GitHub repo to your computer. Either:
-- use the git command: git clone https://github.com/aws-samples/amazon-q-slack-gateway.git
-- OR, download and expand the ZIP file from the GitHub page: https://github.com/aws-samples/amazon-q-slack-gateway/archive/refs/heads/main.zip
+- use the git command: git clone https://github.com/miclip/brave-answers-slack-gateway.git
+- OR, download and expand the ZIP file from the GitHub page: https://github.com/miclip/brave-answers-slack-gateway/archive/refs/heads/main.zip
 
 ## Deploy the solution
 
-Before starting, you need to have an existing, working Amazon Q application. If you haven't set one up yet, see [Creating an Amazon Q application](https://docs.aws.amazon.com/amazonq/latest/business-use-dg/create-app.html)
 
 ### 1. Initialize and deploy the stack
 
@@ -66,13 +65,17 @@ Let's configure your Slack secrets in order to (1) verify the signature of each 
 2. In your AWS account go to Secret manager, using the URL that was output by the `deploy.sh` script above. 
 3. Choose `Retrieve secret value`
 4. Choose `Edit`
-5. Replace the value of `Signing Secret` and `Bot User OAuth Token`, you will find those values in the Slack application configuration under `Basic Information` and `OAuth & Permissions`:
+5. Replace the value of `Signing Secret` and `Bot User OAuth Token`, you will find those values in the Slack application configuration under `Basic Information` and `OAuth & Permissions`
+6. Next we'll configure the Brave API Key, using the URL shown in the stack output: `BraveSecretConsoleUrl`.
+7. Choose `Retrieve secret value`
+8. Choose `Edit`
+9. Replace the value of `Replace with Brave API Key` with the API Key provided by Brave. Ensure the key is a `AI Pro` level subscription. 
 
 ### Say hello
 > Time to say Hi!
 
 1. Go to Slack
-2. Under Apps > Manage, add your new Amazon Q app
+2. Under Apps > Manage, add your new Brave app
 3. Optionally add your app to team channels
 4. In the app DM channel, say *Hello*. In a team channel, ask it for help with an @mention.
 5. Enjoy.
@@ -100,7 +103,7 @@ When completed, it displays the CloudFormation templates S3 URLs and 1-click URL
 ```
 OUTPUTS
 Template URL: https://s3.us-east-1.amazonaws.com/yourbucketbasename-us-east-1/qslack-test/AmazonQSlackGateway.json
-CF Launch URL: https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?templateURL=https://s3.us-east-1.amazonaws.com/yourbucketbasename-us-east-1/qslack-test/AmazonQSlackGateway.json&stackName=AMAZON-Q-SLACK-GATEWAY
+CF Launch URL: https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?templateURL=https://s3.us-east-1.amazonaws.com/yourbucketbasename-us-east-1/qslack-test/AmazonQSlackGateway.json&stackName=brave-SLACK-GATEWAY
 Done
 ``````
 

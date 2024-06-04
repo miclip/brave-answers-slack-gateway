@@ -1,39 +1,14 @@
-# Slack gateway for for Amazon Q Business
+# Slack gateway for Brave Search Summarizer API 
 
-| :zap:        If you have created a new Amazon Q Business application on or after April 30th, 2024, you will not be able to set up a Slack or Microsoft Teams gateway using the instructions provided below. This is because new Amazon Q Business applications require integration with IAM Identity Center. We are currently working on updating the CloudFormation (CFN) template and the necessary steps to accommodate the setup of these gateways for new applications created since April 30th, 2024 with an expected completion date by May 30th, 2024.   |
-|-----------------------------------------|
-
-*See AWS Blog post: [Deploy a Slack gateway for Amazon Q, your business expert](https://aws.amazon.com/blogs/machine-learning/deploy-a-slack-gateway-for-amazon-q-your-business-expert/)*
-
-Amazon Q is a new generative AI-powered application that helps users get work done. Amazon Q can become your tailored business expert and let you discover content, brainstorm ideas, or create summaries using your company’s data safely and securely. For more information see: [Introducing Amazon Q, a new generative AI-powered assistant (preview)](https://aws.amazon.com/blogs/aws/introducing-amazon-q-a-new-generative-ai-powered-assistant-preview)
-
-In this repo we share a project which lets you use Amazon Q's generative AI to enable Slack channel members  to access your organizations data and knowledge sources via conversational question-answering. You can connect to your organization data via data source connectors and integrate it with Slack Gateway for Amazon Q to enable access to your Slack channel members. It allows your users to:
-- Converse with Amazon Q using Slack Direct Message (DM) to ask questions and get answers based on company data, get help creating new content such as emails, and performing tasks. 
-- You can also invite it to participate in your team channels. 
-  - In a channel users can ask it questions in a new message, or tag it in a thread at any point. Get it to provide additional data points, resolve a debate, or summarize the conversation and capture next steps. 
-
-It's amazingly powerful. Here's a demo - seeing is believing!
- 
-
-https://github.com/aws-samples/amazon-q-slack-gateway/assets/10953374/6902a9ea-7a24-4e00-bd41-e1029d0f58e4
-
-
-It's easy to deploy in your own AWS Account, and add to your own Slack Workspace. We show you how below.
+It's easy to deploy in your own AWS Account, and add to your own Slack Workspace. 
 
 ### Features
 - In DMs it responds to all messages
 - In channels it responds only to @mentions, and always replies in thread
 - Renders answers containing markdown - e.g. headings, lists, bold, italics, tables, etc. 
-- Provides thumbs up / down buttons to track user sentiment and help improve performance over time
-- Provides Source Attribution - see references to sources used by Amazon Q
-- Aware of conversation context - it tracks the conversation and applies context
+- Provides Source Attribution - see references to sources used by the model
 - Aware of multiple users - when it's tagged in a thread, it knows who said what, and when - so it can contribute in context and accurately summarize the thread when asked.  
-- Process up to 5 attached files for document question answering, summaries, etc.
 - Reset and start new conversation in DM channel by using `/new_conversation`
-
-This sample Amazon Q slack application is provided as open source — use it as a starting point for your own solution, and help us make it better by contributing back fixes and features via GitHub pull requests. Explore the code, choose Watch to be notified of new releases, and check back for the latest  updates.
-
-![Slack Demo](./images/thread-demo.png)
 
 Follow the instructions below to deploy the project to your own AWS account and Slack workspace, and start experimenting!
 
@@ -43,7 +18,7 @@ Follow the instructions below to deploy the project to your own AWS account and 
 
 You need to have an AWS account and an IAM Role/User with permissions to create and manage the necessary resources and components for this application. *(If you do not have an AWS account, please see [How do I create and activate a new Amazon Web Services account?](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/))*
 
-You also need to have an existing, working Amazon Q application. If you haven't set one up yet, see [Creating an Amazon Q application](https://docs.aws.amazon.com/amazonq/latest/business-use-dg/create-app.html)
+You also need to have an existing, working `Brave AI Pro API Key`. If you haven't set one up yet, see the [Brave Getting Started Guide](https://api.search.brave.com/app/documentation/web-search/get-started)
 
 ### 1. Deploy the stack
 
@@ -54,16 +29,8 @@ If you are a developer, and you want to build, deploy and/or publish the solutio
 1. Log into the [AWS console](https://console.aws.amazon.com/) if you are not already.
 2. Choose one of the **Launch Stack** buttons below for your desired AWS region to open the AWS CloudFormation console and create a new stack.
 4. Enter the following parameters:
-    1. `Stack Name`: Name your App, e.g. AMAZON-Q-SLACK-GATEWAY.
-    2. `AmazonQAppId`: Your existing Amazon Q Application ID (copy from Amazon Q console). 
-    3. `AmazonQRegion`: Choose the region where you created your Amazon Q Application.
-    4. `AmazonQUserId`: (Optional) Amazon Q User ID email address (leave empty to use Slack users email as user Id)
+    1. `Stack Name`: Name your App, e.g. BRAVE-SLACK-GATEWAY.
     5. `ContextDaysToLive`: Just leave this as the default (90 days)
-
-Region | Easy Deploy Button | Template URL - use to upgrade existing stack to a new release
---- | --- | ---
-N. Virginia (us-east-1) | [![Launch Stack](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?templateURL=https://s3.us-east-1.amazonaws.com/aws-ml-blog-us-east-1/artifacts/amazon-q-slack-gateway/AmazonQSlackGateway.json&stackName=AMAZON-Q-SLACK-GATEWAY) | https://s3.us-east-1.amazonaws.com/aws-ml-blog-us-east-1/artifacts/amazon-q-slack-gateway/AmazonQSlackGateway.json
-Oregon (us-west-2) | [![Launch Stack](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://us-west-2.console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/create/review?templateURL=https://s3.us-west-2.amazonaws.com/aws-ml-blog-us-west-2/artifacts/amazon-q-slack-gateway/AmazonQSlackGateway.json&stackName=AMAZON-Q-SLACK-GATEWAY) | https://s3.us-west-2.amazonaws.com/aws-ml-blog-us-west-2/artifacts/amazon-q-slack-gateway/AmazonQSlackGateway.json
 
 
 When your CloudFormation stack status is CREATE_COMPLETE, choose the **Outputs** tab, and keep it open - you'll need it below.
@@ -74,7 +41,6 @@ When your CloudFormation stack status is CREATE_COMPLETE, choose the **Outputs**
 #### 2.2 Create your app
 
 Now you can create your new app in Slack!  
-*NOTE: If you have deployed the Slack data source connector for Amazon Q you may already have an existing Slack app installed. Do not attempt to modify that data source connector app - create a new app instead.*
 
 1. Create a Slack app: https://api.slack.com/apps from the generated manifest - copy / paste from the stack output: `SlackAppManifest`.
 2. Go to `App Home`, scroll down to the section `Show Tabs` and enable `Message Tab` then check the box `Allow users to send Slash commands and messages from the messages tab` - This is a required step to enable your user to send messages to your app
@@ -104,13 +70,17 @@ Let's configure your Slack secrets in order to (1) verify the signature of each 
 3. Choose `Retrieve secret value`
 4. Choose `Edit`
 5. Replace the value of `Signing Secret`<sup>\*</sup> and `Bot User OAuth Token`, you will find those values in the Slack application configuration under `Basic Information` and `OAuth & Permissions`. <sup>\*</sup>*(Pro tip: Be careful you don't accidentally copy 'Client Secret' (wrong) instead of 'Signing Secret' (right)!)*
+7. Next we'll configure the Brave API Key, using the URL shown in the stack output: `BraveSecretConsoleUrl`.
+8. Choose `Retrieve secret value`
+9. Choose `Edit`
+10. Replace the value of `<Replace with Brave API Key>` with the API Key provided by Brave. Ensure the key is a `AI Pro` level subscription. 
 
 
 ### Say hello
 > Time to say Hi!
 
 1. Go to Slack
-2. Under Apps > Manage, add your new Amazon Q app
+2. Under Apps > Manage, add your new Brave app
 3. Optionally add your app to team channels
 4. In the app DM channel, say *Hello*. In a team channel, ask it for help with an @mention.
 5. Enjoy.

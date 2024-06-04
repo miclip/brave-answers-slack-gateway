@@ -9,12 +9,10 @@ const logger = makeLogger('slack-command-handler');
 const processSlackEventsEnv = (env: NodeJS.ProcessEnv) => ({
   REGION: getOrThrowIfEmpty(env.AWS_REGION ?? env.AWS_DEFAULT_REGION),
   SLACK_SECRET_NAME: getOrThrowIfEmpty(env.SLACK_SECRET_NAME),
-  AMAZON_Q_APP_ID: getOrThrowIfEmpty(env.AMAZON_Q_APP_ID),
-  AMAZON_Q_USER_ID: env.AMAZON_Q_USER_ID,
-  AMAZON_Q_REGION: getOrThrowIfEmpty(env.AMAZON_Q_REGION),
+  BRAVE_SECRET_NAME: getOrThrowIfEmpty(env.BRAVE_SECRET_NAME),
   CONTEXT_DAYS_TO_LIVE: getOrThrowIfEmpty(env.CONTEXT_DAYS_TO_LIVE),
   CACHE_TABLE_NAME: getOrThrowIfEmpty(env.CACHE_TABLE_NAME),
-  MESSAGE_METADATA_TABLE_NAME: getOrThrowIfEmpty(env.MESSAGE_METADATA_TABLE_NAME)
+  MESSAGE_METADATA_TABLE_NAME: getOrThrowIfEmpty(env.MESSAGE_METADATA_TABLE_NAME),
 });
 
 export type SlackEventsEnv = ReturnType<typeof processSlackEventsEnv>;

@@ -25,20 +25,18 @@ STACKNAME=$(jq -r ".StackName" "$ENVIRONMENT_FILE" 2> /dev/null)
 # Extract the API Endpoint Urls based on the known substrings using jq
 CDK_OUT_CONTENT=$(<"$CDK_OUT_FILE")
 SLACK_EVENT_HANDLER_API_OUTPUT=$(echo "$CDK_OUT_CONTENT" | jq -r '.[] | to_entries[] | select(.key | contains("SlackEventHandlerApiEndpoint")) | .value')
-SLACK_INTERACTION_HANDLER_API_OUTPUT=$(echo "$CDK_OUT_CONTENT" | jq -r '.[] | to_entries[] | select(.key | contains("SlackInteractionHandlerApiEndpoint")) | .value')
 SLACK_COMMAND_HANDLER_API_OUTPUT=$(echo "$CDK_OUT_CONTENT" | jq -r '.[] | to_entries[] | select(.key | contains("SlackCommandHandlerApiEndpoint")) | .value')
 SLACK_SECRET_URL_OUTPUT=$(echo "$CDK_OUT_CONTENT" | jq -r '.[] | to_entries[] | select(.key | contains("SlackSecretConsoleUrl")) | .value')
+BRAVE_SECRET_URL_OUTPUT=$(echo "$CDK_OUT_CONTENT" | jq -r '.[] | to_entries[] | select(.key | contains("BraveSecretConsoleUrl")) | .value')
 
 # Use sed to replace the tokens with the extracted values in the template file and write to the new file
 if sed --version 2>/dev/null | grep -q GNU; then # GNU sed
     sed "s|\"!!! \[SlackBotName\] !!!\"|\"$STACKNAME\"|g" "$TEMPLATE_FILE" > "$OUTPUT_FILE"
     sed -i "s|\"!!! \[SlackEventHandlerApiOutput\] !!!\"|\"$SLACK_EVENT_HANDLER_API_OUTPUT\"|g" "$OUTPUT_FILE"
-    sed -i "s|\"!!! \[SlackInteractionHandlerApiOutput\] !!!\"|\"$SLACK_INTERACTION_HANDLER_API_OUTPUT\"|g" "$OUTPUT_FILE"
     sed -i "s|\"!!! \[SlackCommandApiOutput\] !!!\"|\"$SLACK_COMMAND_HANDLER_API_OUTPUT\"|g" "$OUTPUT_FILE"
 else
     sed "s|\"!!! \[SlackBotName\] !!!\"|\"$STACKNAME\"|g" "$TEMPLATE_FILE" > "$OUTPUT_FILE"
     sed -i "" "s|\"!!! \[SlackEventHandlerApiOutput\] !!!\"|\"$SLACK_EVENT_HANDLER_API_OUTPUT\"|g" "$OUTPUT_FILE"
-    sed -i "" "s|\"!!! \[SlackInteractionHandlerApiOutput\] !!!\"|\"$SLACK_INTERACTION_HANDLER_API_OUTPUT\"|g" "$OUTPUT_FILE"
     sed -i "" "s|\"!!! \[SlackCommandApiOutput\] !!!\"|\"$SLACK_COMMAND_HANDLER_API_OUTPUT\"|g" "$OUTPUT_FILE"
 fi
 

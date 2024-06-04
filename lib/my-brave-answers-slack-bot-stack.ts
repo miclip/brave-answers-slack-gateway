@@ -7,6 +7,7 @@ import { Construct } from 'constructs';
 import { Vpc } from 'aws-cdk-lib/aws-ec2';
 import { AttributeType, Table } from 'aws-cdk-lib/aws-dynamodb';
 import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
 
 import {
   ManagedPolicy,
@@ -15,14 +16,14 @@ import {
   Role,
   ServicePrincipal
 } from 'aws-cdk-lib/aws-iam';
-import { StackEnvironment } from '../bin/my-amazon-q-slack-bot';
+import { StackEnvironment } from '../bin/my-brave-answers-slack-bot';
 
 import * as fs from 'fs';
 const packageJson = fs.readFileSync('package.json', 'utf-8');
 const version = JSON.parse(packageJson).version;
-const STACK_DESCRIPTION = `Amazon Q Slack Gateway - v${version}`;
+const STACK_DESCRIPTION = `Brave Slack Gateway - v${version}`;
 
-export class MyAmazonQSlackBotStack extends cdk.Stack {
+export class MyBraveSlackBotStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: cdk.StackProps, env: StackEnvironment) {
     super(scope, id, {
       ...props,
@@ -32,11 +33,26 @@ export class MyAmazonQSlackBotStack extends cdk.Stack {
     // Reference the AWS::StackName directly
     const refStackName = cdk.Fn.ref('AWS::StackName');
 
-    const vpc = new Vpc(this, `${props.stackName}-VPC`);
-
+    const vpc = new Vpc(this, `${props.stackName}-VPC`,{
+      ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'),
+      natGateways: 1,
+      maxAzs: 3,
+      subnetConfiguration: [
+        {
+          name: 'private-subnet-1',
+          subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
+          cidrMask: 24,
+        },
+        {
+          name: 'public-subnet-1',
+          subnetType: ec2.SubnetType.PUBLIC,
+          cidrMask: 24,
+        },
+      ],
+    });
     const initialSecretContent = JSON.stringify({
       SlackSigningSecret: '<Replace with Signing Secret>',
-      SlackBotUserOAuthToken: '<Replace with Bot User OAuth Token>'
+      SlackBotUserOAuthToken: '<Replace with Bot User OAuth Token>',
     });
     const slackSecret = new Secret(this, `${props.stackName}-Secret`, {
       secretName: `${refStackName}-Secret`,
@@ -46,6 +62,19 @@ export class MyAmazonQSlackBotStack extends cdk.Stack {
     new CfnOutput(this, 'SlackSecretConsoleUrl', {
       value: `https://${this.region}.console.aws.amazon.com/secretsmanager/secret?name=${slackSecret.secretName}&region=${this.region}`,
       description: 'Click to edit the Slack secrets in the AWS Secrets Manager console'
+    });
+
+    const initialBraveSecretContent = JSON.stringify({
+      BraveAPIKey: '<Replace with Brave API Key>'
+    });
+    const braveSecret = new Secret(this, `${props.stackName}-Brave-Secret`, {
+      secretName: `${refStackName}-Brave-Secret`,
+      secretStringValue: cdk.SecretValue.unsafePlainText(initialBraveSecretContent)
+    });
+    // Output URL to the secret in the AWS Management Console
+    new CfnOutput(this, 'BraveSecretConsoleUrl', {
+      value: `https://${this.region}.console.aws.amazon.com/secretsmanager/secret?name=${braveSecret.secretName}&region=${this.region}`,
+      description: 'Click to edit the Brave secrets in the AWS Secrets Manager console'
     });
 
     const dynamoCache = new Table(this, `${props.stackName}-DynamoCache`, {
@@ -75,11 +104,6 @@ export class MyAmazonQSlackBotStack extends cdk.Stack {
         description: 'Handler for Slack events'
       },
       {
-        handler: 'slack-interaction-handler',
-        id: 'SlackInteractionHandler',
-        description: 'Handler for Slack interactions'
-      },
-      {
         handler: 'slack-command-handler',
         id: 'SlackCommandHandler',
         description: 'Handler for Slack commands'
@@ -98,12 +122,10 @@ export class MyAmazonQSlackBotStack extends cdk.Stack {
           timeout: Duration.seconds(30),
           environment: {
             SLACK_SECRET_NAME: slackSecret.secretName,
-            AMAZON_Q_REGION: env.AmazonQRegion,
-            AMAZON_Q_APP_ID: env.AmazonQAppId,
-            AMAZON_Q_USER_ID: env.AmazonQUserId ?? '',
+            BRAVE_SECRET_NAME: braveSecret.secretName,
             CONTEXT_DAYS_TO_LIVE: env.ContextDaysToLive,
             CACHE_TABLE_NAME: dynamoCache.tableName,
-            MESSAGE_METADATA_TABLE_NAME: messageMetadata.tableName
+            MESSAGE_METADATA_TABLE_NAME: messageMetadata.tableName,
           },
           role: new Role(this, `${prefix}-Role`, {
             assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
@@ -115,7 +137,7 @@ export class MyAmazonQSlackBotStack extends cdk.Stack {
                 statements: [
                   new PolicyStatement({
                     actions: ['secretsmanager:GetSecretValue'],
-                    resources: [slackSecret.secretArn]
+                    resources: [slackSecret.secretArn, braveSecret.secretArn]
                   })
                 ]
               }),
@@ -127,18 +149,12 @@ export class MyAmazonQSlackBotStack extends cdk.Stack {
                   })
                 ]
               }),
-              ChatPolicy: new PolicyDocument({
-                statements: [
-                  new PolicyStatement({
-                    actions: ['qbusiness:ChatSync', 'qbusiness:PutFeedback'],
-                    // parametrized
-                    resources: [`arn:aws:qbusiness:*:*:application/${env.AmazonQAppId}`]
-                  })
-                ]
-              })
             }
           }),
-          vpc
+          vpc,
+          vpcSubnets: {
+            subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
+          },
         })
       });
     });
